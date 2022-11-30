@@ -11,3 +11,4 @@ class ArgsParser(argparse.ArgumentParser):
 
         self.add_argument("address", help="address to server with port in format [host]:[port]")
         self.add_argument("-n", "--name", help="server name, it will be shown in GUI")
+        self.add_argument("-it", "--icon-title", help="text on top of icon")

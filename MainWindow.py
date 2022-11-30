@@ -14,6 +14,7 @@ class MainWindow(Gtk.Window):
         server_address: str,
         server_name: str = None,
         request_delay: int = 30000,
+        icon_title: str = None,
         **kwargs
     ):
         super().__init__(title="Server Info: " + (server_name or server_address))
@@ -26,7 +27,7 @@ class MainWindow(Gtk.Window):
         connect(self, "delete-event", self.on_delete)
 
         # setup tray and menu
-        self.tray = TrayIcon(icon_path, font_path, "?")
+        self.tray = TrayIcon(icon_path, font_path, "?", icon_title)
         self.menu = TrayMenu(self)
 
         # right on tray click open menu
@@ -55,7 +56,7 @@ class MainWindow(Gtk.Window):
             print(e)
             text = "X"
 
-        self.tray.set_text(text)
+        self.tray.set_bottom_text(text)
         return True  # repeat
 
     def toggle_visibility(self):

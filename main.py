@@ -21,7 +21,7 @@ config = {
     "request_delay": 10000,  # TODO: in seconds, min 30
     "server_address": None,
     "server_name": None,  # TODO: request from server itself if None
-    "icon_text": None,
+    "icon_title": None,
     "filter_bots": False,  # maybe TODO: filter by ping or by bots info
     "game_path": None,
 }
@@ -29,7 +29,7 @@ config = {
 args = ArgsParser().parse_args()
 override_config("server_address", args.address)
 override_config("server_name", args.name)
-
+override_config("icon_title", args.icon_title)
 
 window = MainWindow(**config)
 window.move(1600, 800)
