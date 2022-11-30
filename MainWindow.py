@@ -42,7 +42,7 @@ class MainWindow(Gtk.Window):
         host, port = server_address.split(":")
         self.server = Server(host, int(port))
         self.request_server()
-        GLib.timeout_add(request_delay, self.request_server)
+        GLib.timeout_add(request_delay * 1000, self.request_server)
 
     def request_server(self):
         print("requesting")

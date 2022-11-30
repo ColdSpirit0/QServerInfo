@@ -1,6 +1,14 @@
 import argparse
 
 
+def request_delay_type(value: int) -> int:
+    value = int(value)
+    if value < 30:
+        raise argparse.ArgumentTypeError(f"Given request delay \"{value}\" is less than 30, this is too often!")
+    else:
+        return value
+
+
 class ArgsParser(argparse.ArgumentParser):
     def __init__(self, *args, **kwargs):
         super().__init__(
@@ -12,3 +20,6 @@ class ArgsParser(argparse.ArgumentParser):
         self.add_argument("address", help="address to server with port in format [host]:[port]")
         self.add_argument("-n", "--name", help="server name, it will be shown in GUI")
         self.add_argument("-it", "--icon-title", help="text on top of icon")
+        self.add_argument("-rd", "--request-delay",
+                          help="how often server will be requested; in seconds, minimum 30, default 60",
+                          type=request_delay_type)
