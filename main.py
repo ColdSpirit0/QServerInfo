@@ -21,7 +21,7 @@ builder.server_address = args.address
 builder.server_name = args.name
 builder.icon_title = args.icon_title
 builder.filter_bots = args.filter_bots
-builder.game_path = None
+builder.game_path = args.executable
 
 
 window = MainWindow(builder.build())

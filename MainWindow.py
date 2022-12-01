@@ -1,4 +1,5 @@
 from gi.repository import Gtk, Gdk, GLib
+import subprocess
 
 from TrayMenu import TrayMenu
 from TrayIcon import TrayIcon
@@ -86,12 +87,24 @@ class MainWindow(Gtk.Window):
         vbox.pack_start(hbox, True, False, 0)
 
         # create join button
-        # TODO: show only when path to game not null
-        join_button = Gtk.Button(label="Join!")
-        join_button.override_background_color(
-            Gtk.StateFlags.NORMAL, Gdk.RGBA(0.7, 0.25, 0.2, 1)
-        )
-        vbox.pack_start(join_button, False, True, 0)
+        if self.config.game_path is not None:
+
+            join_button = Gtk.Button(label="Join!")
+            join_button.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.7, 0.25, 0.2, 1))
+            join_button.override_background_color(Gtk.StateFlags.ACTIVE, Gdk.RGBA(0.8, 0.35, 0.2, 1))
+            vbox.pack_start(join_button, False, True, 0)
+
+            connect(join_button, "clicked", self.start_game)
 
         vbox.show_all()
         self.add(vbox)
+
+    def start_game(self):
+        if self.config.game_path is None:
+            raise Exception("game path is none, that should not happen")
+
+        print("running", self.config.game_path)
+        self.hide()
+
+        subprocess.Popen([self.config.game_path, "+connect", self.config.server_address],
+                         start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

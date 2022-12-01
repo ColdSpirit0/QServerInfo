@@ -25,3 +25,6 @@ class ArgsParser(argparse.ArgumentParser):
                           type=request_delay_type)
         self.add_argument("-fb", "--filter-bots", help="remove bots from players count if possible",
                           action="store_true")
+        self.add_argument("-e", "--executable",
+                          help="path to game executable which will start after"
+                          " \"Join\" button click with parameter \"+connect <address>\"")
