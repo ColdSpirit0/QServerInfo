@@ -1,8 +1,8 @@
 from gi.repository import Gtk, Gdk, GLib
-from pyq3serverlist import Server, PyQ3SLError, PyQ3SLTimeoutError
 
 from TrayMenu import TrayMenu
 from TrayIcon import TrayIcon
+from Server import Server
 from utils import connect
 
 
@@ -41,41 +41,19 @@ class MainWindow(Gtk.Window):
         self.setup_window()
 
         # start server requesting
-        host, port = server_address.split(":")
-        self.server = Server(host, int(port))
+        self.server = Server(server_address)
         self.request_server()
         GLib.timeout_add(request_delay * 1000, self.request_server)
 
     def request_server(self):
-        print("requesting:", self.server_address)
+        data = self.server.request_data()
 
-        try:
-            info = self.server.get_status()
+        players_count = data.players_count
 
-            # print server info
-            for k, v in info.items():
-                print(f"\t{k}: \"{v}\"")
+        if self.filter_bots:
+            players_count -= data.bots_count
 
-            players = info["players"]
-            players_count = len(players)
-
-            if self.filter_bots:
-                # try to get "bots" value
-                bots_count = info.get("bots")
-
-                if bots_count is None:
-                    # count players where ping 0 or less
-                    bots_count = len([p for p in players if p.get("ping", 1) <= 0])
-
-                players_count -= int(bots_count)
-
-            text = str(players_count)
-
-        except (PyQ3SLError, PyQ3SLTimeoutError) as e:
-            print(e)
-            text = "X"
-
-        self.tray.set_bottom_text(text)
+        self.tray.set_bottom_text(str(players_count))
         return True  # repeat
 
     def toggle_visibility(self):
