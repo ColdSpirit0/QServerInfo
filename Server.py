@@ -50,7 +50,7 @@ class Server():
 
             # print server info
             for k, v in info.items():
-                print(f"\t{k}: \"{v}\"")
+                print(f"\t{ServerData.decode_text(k)}: \"{ServerData.decode_text(str(v))}\"")
 
             return ServerData(info)
 
