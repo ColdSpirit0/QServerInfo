@@ -3,35 +3,23 @@ from gi.repository import Gtk, Gdk, GLib
 from TrayMenu import TrayMenu
 from TrayIcon import TrayIcon
 from Server import Server
+from Config import Config
 from utils import connect
 
 
 class MainWindow(Gtk.Window):
-    def __init__(
-        self,
-        icon_path: str,
-        font_path: str,
-        server_address: str,
-        server_name: str,
-        request_delay: int,
-        icon_title: str,
-        filter_bots: bool,
-        **kwargs
-    ):
+    def __init__(self, config: Config):
         super().__init__()
-        self.update_title_info(server_name or server_address)
+        self.update_title_info(config.server_name or config.server_address)
 
-        # save params
-        self.server_address = server_address
-        self.filter_bots = filter_bots
-        self.server_name = server_name
+        self.config = config
 
         # configure window events
         self.connect("key_press_event", self.on_key)
         connect(self, "delete-event", self.on_delete)
 
         # setup tray and menu
-        self.tray = TrayIcon(icon_path, font_path, "?", icon_title)
+        self.tray = TrayIcon(config.icon_path, config.font_path, "?", config.icon_title)
         self.menu = TrayMenu(self)
 
         # right on tray click open menu
@@ -43,9 +31,9 @@ class MainWindow(Gtk.Window):
         self.setup_window()
 
         # start server requesting
-        self.server = Server(server_address)
+        self.server = Server(config.server_address)
         self.request_server()
-        GLib.timeout_add(request_delay * 1000, self.request_server)
+        GLib.timeout_add(config.request_delay * 1000, self.request_server)
 
     def request_server(self):
         data = self.server.request_data()
@@ -53,10 +41,10 @@ class MainWindow(Gtk.Window):
         if data is not None:
             players_count = data.players_count
 
-            if self.filter_bots:
+            if self.config.filter_bots:
                 players_count -= data.bots_count
 
-            if self.server_name is None:
+            if self.config.server_name is None:
                 # set name what server provides
                 self.update_title_info(data.hostname)
 
@@ -93,7 +81,7 @@ class MainWindow(Gtk.Window):
         # create readonly address field
         hbox = Gtk.Box(spacing=5)
         hbox.pack_start(Gtk.Label("Address"), False, True, 0)
-        hbox.pack_start(Gtk.Entry(text=self.server_address, editable=False), True, True, 0)
+        hbox.pack_start(Gtk.Entry(text=self.config.server_address, editable=False), True, True, 0)
 
         vbox.pack_start(hbox, True, False, 0)
 
