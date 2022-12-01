@@ -50,16 +50,21 @@ class MainWindow(Gtk.Window):
     def request_server(self):
         data = self.server.request_data()
 
-        players_count = data.players_count
+        if data is not None:
+            players_count = data.players_count
 
-        if self.filter_bots:
-            players_count -= data.bots_count
+            if self.filter_bots:
+                players_count -= data.bots_count
 
-        if self.server_name is None:
-            # set name what server provides
-            self.update_title_info(data.hostname)
+            if self.server_name is None:
+                # set name what server provides
+                self.update_title_info(data.hostname)
 
-        self.tray.set_bottom_text(str(players_count))
+            self.tray.set_bottom_text(str(players_count))
+
+        else:
+            self.tray.set_bottom_text("X")
+
         return True  # repeat
 
     def toggle_visibility(self):
