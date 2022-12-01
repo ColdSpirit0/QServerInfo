@@ -28,6 +28,14 @@ class ServerData():
 
         return bots_count
 
+    @property
+    def hostname(self) -> str:
+        return self.decode_text(self.data.get("hostname") or self.data.get("sv_hostname"))
+
+    @staticmethod
+    def decode_text(text):
+        return text.encode("raw_unicode_escape").decode("utf-8")
+
 
 class Server():
     def __init__(self, address: str):

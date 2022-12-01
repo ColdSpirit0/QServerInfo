@@ -19,7 +19,7 @@ config = {
     "font_path": "data/Xolonium-Bold.ttf",
     "request_delay": 10,
     "server_address": None,
-    "server_name": None,  # TODO: request from server itself if None
+    "server_name": None,
     "icon_title": None,
     "filter_bots": False,
     "game_path": None,

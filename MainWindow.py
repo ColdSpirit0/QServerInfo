@@ -18,11 +18,13 @@ class MainWindow(Gtk.Window):
         filter_bots: bool,
         **kwargs
     ):
-        super().__init__(title="Server Info: " + (server_name or server_address))
+        super().__init__()
+        self.update_title_info(server_name or server_address)
 
         # save params
         self.server_address = server_address
         self.filter_bots = filter_bots
+        self.server_name = server_name
 
         # configure window events
         self.connect("key_press_event", self.on_key)
@@ -53,6 +55,10 @@ class MainWindow(Gtk.Window):
         if self.filter_bots:
             players_count -= data.bots_count
 
+        if self.server_name is None:
+            # set name what server provides
+            self.update_title_info(data.hostname)
+
         self.tray.set_bottom_text(str(players_count))
         return True  # repeat
 
@@ -69,6 +75,9 @@ class MainWindow(Gtk.Window):
     def on_delete(self):
         self.hide()
         return True  # dont destroy object
+
+    def update_title_info(self, info):
+        self.set_title("Server Info: " + info)
 
     def setup_window(self):
         self.resize(500, 500)
