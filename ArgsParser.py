@@ -23,3 +23,5 @@ class ArgsParser(argparse.ArgumentParser):
         self.add_argument("-rd", "--request-delay",
                           help="how often server will be requested; in seconds, minimum 30, default 60",
                           type=request_delay_type)
+        self.add_argument("-fb", "--filter-bots", help="remove bots from players count if possible",
+                          action="store_true")

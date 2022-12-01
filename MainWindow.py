@@ -12,15 +12,17 @@ class MainWindow(Gtk.Window):
         icon_path: str,
         font_path: str,
         server_address: str,
-        server_name: str = None,
-        request_delay: int = 30000,
-        icon_title: str = None,
+        server_name: str,
+        request_delay: int,
+        icon_title: str,
+        filter_bots: bool,
         **kwargs
     ):
         super().__init__(title="Server Info: " + (server_name or server_address))
 
         # save params
         self.server_address = server_address
+        self.filter_bots = filter_bots
 
         # configure window events
         self.connect("key_press_event", self.on_key)
@@ -45,13 +47,30 @@ class MainWindow(Gtk.Window):
         GLib.timeout_add(request_delay * 1000, self.request_server)
 
     def request_server(self):
-        print("requesting")
+        print("requesting:", self.server_address)
 
         try:
             info = self.server.get_status()
-            print(info)
-            text = str(len(info["players"]))
-            # text = info["clients"]
+
+            # print server info
+            for k, v in info.items():
+                print(f"\t{k}: \"{v}\"")
+
+            players = info["players"]
+            players_count = len(players)
+
+            if self.filter_bots:
+                # try to get "bots" value
+                bots_count = info.get("bots")
+
+                if bots_count is None:
+                    # count players where ping 0 or less
+                    bots_count = len([p for p in players if p.get("ping", 1) <= 0])
+
+                players_count -= int(bots_count)
+
+            text = str(players_count)
+
         except (PyQ3SLError, PyQ3SLTimeoutError) as e:
             print(e)
             text = "X"
