@@ -1,12 +1,12 @@
-from gi.repository import Gtk  # type: ignore
+from gi.repository import Gtk, GObject  # type: ignore
+from typing import Callable
 
 
-# TODO: add types
-def connect(obj, event, listener, *args):
+def connect(obj: GObject.Object, event: str, listener: Callable, *args):
     obj.connect(event, lambda *_: listener(*args))
 
 
-def connect_after(obj, event, listener, *args):
+def connect_after(obj: GObject.Object, event: str, listener: Callable, *args):
     obj.connect_after(event, lambda *_: listener(*args))
 
 
