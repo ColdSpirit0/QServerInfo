@@ -1,0 +1,11 @@
+[tool.flake8]
+ignore = ["E402", "W503", "E127", "E126"]
+max-line-length = 120
+
+[tool.autopep8]
+ignore = ["E402", "W503", "E127", "E126"]
+max-line-length = 120
+
+# [tool.pyright]
+# typeCheckingMode = "base"
+# reportMissingModuleSource = false

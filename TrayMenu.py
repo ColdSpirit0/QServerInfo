@@ -1,5 +1,5 @@
-from gi.repository import Gtk
-from utils import connect
+from gi.repository import Gtk  # type: ignore
+from utils.gtk import connect
 
 
 class TrayMenu(Gtk.Menu):

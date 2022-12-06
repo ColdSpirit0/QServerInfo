@@ -1,6 +1,6 @@
 from gi.repository import Gtk
 from PIL import Image, ImageDraw, ImageFont
-from utils import image2pixbuf, calc_font_size
+from utils.image_manipulation import image2pixbuf, calc_font_size
 
 
 class TrayIcon(Gtk.StatusIcon):
@@ -49,9 +49,9 @@ class TrayIcon(Gtk.StatusIcon):
                     stroke_width
                 )
 
-        import os
-        os.system("pkill xviewer")
-        img.show()
+        # import os
+        # os.system("pkill xviewer")
+        # img.show()
 
         self.set_from_pixbuf(image2pixbuf(img))
 

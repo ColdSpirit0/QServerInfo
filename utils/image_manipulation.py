@@ -1,13 +1,5 @@
-from gi.repository import GLib, GdkPixbuf
+from gi.repository import GLib, GdkPixbuf  # type: ignore
 from PIL import Image, ImageFont
-
-
-def connect(obj, event, listener, *args):
-    obj.connect(event, lambda *_: listener(*args))
-
-
-def connect_after(obj, event, listener, *args):
-    obj.connect_after(event, lambda *_: listener(*args))
 
 
 def pixbuf2image(pix: GdkPixbuf.Pixbuf) -> Image.Image:
@@ -57,6 +49,6 @@ def calc_font_size(text, fontname, iw, ih):
     cur_height = b - t
 
     realsize_ratio = test_size / cur_height
-    realsize_w, realsize_h = bound(cur_width, cur_height, iw, ih)
+    _, realsize_h = bound(cur_width, cur_height, iw, ih)
 
     return int(realsize_h * realsize_ratio)

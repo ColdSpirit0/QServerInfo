@@ -7,9 +7,7 @@ from ArgsParser import ArgsParser
 from MainWindow import MainWindow
 from Config import ConfigBuilder
 
-
 # TODO: class ServerInfo
-
 
 args = ArgsParser().parse_args()
 builder = ConfigBuilder()

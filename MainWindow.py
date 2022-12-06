@@ -3,9 +3,12 @@ import subprocess
 
 from TrayMenu import TrayMenu
 from TrayIcon import TrayIcon
-from Server import Server
+from PlayersTable import PlayersTable
+from server import Server, DummyServer
 from Config import Config
-from utils import connect
+from utils.gtk import connect, setup_style
+
+from text_parsers import PlainTextParser, XonoticTextParser
 
 
 class MainWindow(Gtk.Window):
@@ -29,10 +32,13 @@ class MainWindow(Gtk.Window):
         connect(self.tray, "activate", self.toggle_visibility)
 
         # setup window: widgets, size, pos etc
+        setup_style(self, "main-window", "styles/main.css")
         self.setup_window()
 
         # start server requesting
-        self.server = Server(config.server_address)
+
+        ChoosenServer = Server if config.server_address != "dummy" else DummyServer
+        self.server = ChoosenServer(config.server_address)
         self.request_server()
         GLib.timeout_add(config.request_delay * 1000, self.request_server)
 
@@ -48,6 +54,8 @@ class MainWindow(Gtk.Window):
             if self.config.server_name is None:
                 # set name what server provides
                 self.update_title_info(data.hostname)
+
+            self.players_table.update_data(data.players, self.get_parser(data.gamename))
 
             self.tray.set_bottom_text(str(players_count))
 
@@ -86,6 +94,9 @@ class MainWindow(Gtk.Window):
 
         vbox.pack_start(hbox, True, False, 0)
 
+        self.players_table = PlayersTable([], self.get_parser(None))
+        vbox.pack_start(self.players_table, True, True, 0)
+
         # create join button
         if self.config.game_path is not None:
 
@@ -108,3 +119,9 @@ class MainWindow(Gtk.Window):
 
         subprocess.Popen([self.config.game_path, "+connect", self.config.server_address],
                          start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    @staticmethod
+    def get_parser(game_name: str | None):
+        match game_name:
+            case "Xonotic": return XonoticTextParser
+            case _: return PlainTextParser
