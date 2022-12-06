@@ -4,10 +4,10 @@ from dataclasses import dataclass
 
 
 class Config():
-    icon_path: str | None = None
-    font_path: str | None = None
-    request_delay: int | None = None
-    server_address: str | None = None
+    icon_path: str
+    font_path: str
+    request_delay: int
+    server_address: str
     server_name: str | None = None
     icon_title: str | None = None
     filter_bots: bool | None = None
@@ -16,10 +16,10 @@ class Config():
 
 @dataclass(frozen=True)
 class FrozenConfig(Config):
-    icon_path: str | None = None
-    font_path: str | None = None
-    request_delay: int | None = None
-    server_address: str | None = None
+    icon_path: str
+    font_path: str
+    request_delay: int
+    server_address: str
     server_name: str | None = None
     icon_title: str | None = None
     filter_bots: bool | None = None

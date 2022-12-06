@@ -1,10 +1,10 @@
-from .ServerText import ServerText
 from .Server import Server
 from .ServerData import ServerData
 
 
 class DummyServer(Server):
     def __init__(self, *args, **kwargs):
+        _ = args, kwargs  # fix pyright 'args not acessed' warning
         pass
 
     def request_data(self) -> ServerData:

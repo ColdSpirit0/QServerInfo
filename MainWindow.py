@@ -1,4 +1,4 @@
-from gi.repository import Gtk, Gdk, GLib
+from gi.repository import Gtk, Gdk, GLib  # type: ignore
 import subprocess
 
 from TrayMenu import TrayMenu
@@ -70,7 +70,7 @@ class MainWindow(Gtk.Window):
         else:
             self.show()
 
-    def on_key(self, caller, key):
+    def on_key(self, _, key):
         if key.keyval == Gdk.KEY_Escape:
             Gtk.main_quit()
 
@@ -85,12 +85,12 @@ class MainWindow(Gtk.Window):
         self.resize(500, 500)
 
         # create layout
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5, border_width=5)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5, border_width=5)  # type: ignore
 
         # create readonly address field
         hbox = Gtk.Box(spacing=5)
         hbox.pack_start(Gtk.Label("Address"), False, True, 0)
-        hbox.pack_start(Gtk.Entry(text=self.config.server_address, editable=False), True, True, 0)
+        hbox.pack_start(Gtk.Entry(text=self.config.server_address, editable=False), True, True, 0)  # type: ignore
 
         vbox.pack_start(hbox, True, False, 0)
 

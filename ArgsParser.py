@@ -1,12 +1,12 @@
 import argparse
 
 
-def request_delay_type(value: int) -> int:
-    value = int(value)
-    if value < 30:
-        raise argparse.ArgumentTypeError(f"Given request delay \"{value}\" is less than 30, this is too often!")
+def request_delay_type(value: str) -> int:
+    number = int(value)
+    if number < 30:
+        raise argparse.ArgumentTypeError(f"Given request delay \"{number}\" is less than 30, this is too often!")
     else:
-        return value
+        return number
 
 
 class ArgsParser(argparse.ArgumentParser):

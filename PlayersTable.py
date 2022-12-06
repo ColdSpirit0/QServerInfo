@@ -1,4 +1,4 @@
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk  # type: ignore
 
 from colour import Color
 from utils.color_processing import get_contrast_color

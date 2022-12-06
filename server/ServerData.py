@@ -47,4 +47,6 @@ class ServerData():
 
     @cached_property
     def gamename(self) -> str:
-        return self.data.get("gamename")
+        name = self.data.get("gamename")
+        assert isinstance(name, str)
+        return name

@@ -1,10 +1,14 @@
-from gi.repository import Gtk
+from gi.repository import Gtk  # type: ignore
 from PIL import Image, ImageDraw, ImageFont
 from utils.image_manipulation import image2pixbuf, calc_font_size
 
 
 class TrayIcon(Gtk.StatusIcon):
-    def __init__(self, icon_path: str, font_path: str = None, startup_bottom_text: str = None, top_text: str = None):
+    def __init__(self, icon_path: str,
+                       font_path: str,
+                       startup_bottom_text: str,
+                       top_text: str | None = None):
+
         super().__init__()
         self.font_path = font_path
 
@@ -26,28 +30,12 @@ class TrayIcon(Gtk.StatusIcon):
             draw = ImageDraw.Draw(img, "RGBA")
 
             if self.top_text:
-                self.apply_text(
-                    img,
-                    draw,
-                    self.top_text,
-                    (img.width, text_padding),
-                    text_container_size,
-                    "rt",
-                    text_padding,
-                    stroke_width
-                )
+                self.apply_text(draw, self.top_text, (img.width, text_padding),
+                                 text_container_size, "rt", stroke_width)
 
             if bottom_text:
-                self.apply_text(
-                    img,
-                    draw,
-                    bottom_text,
-                    (img.width, img.height - text_padding),
-                    text_container_size,
-                    "rs",
-                    text_padding,
-                    stroke_width
-                )
+                self.apply_text(draw, bottom_text, (img.width, img.height - text_padding),
+                                 text_container_size, "rs", stroke_width)
 
         # import os
         # os.system("pkill xviewer")
@@ -55,27 +43,11 @@ class TrayIcon(Gtk.StatusIcon):
 
         self.set_from_pixbuf(image2pixbuf(img))
 
-    def apply_text(
-        self,
-        img: Image.Image,
-        draw: ImageDraw.ImageDraw,
-        text: str,
-        pos: tuple,
-        text_container_size: tuple,
-        anchor: str,
-        text_padding: str,
-        stroke_width
-    ):
+    def apply_text(self, draw: ImageDraw.ImageDraw, text: str, pos: tuple,
+                   text_container_size: tuple, anchor: str, stroke_width):
 
         font_size = calc_font_size(text, self.font_path, *text_container_size)
         font = ImageFont.truetype(self.font_path, font_size)
 
-        draw.text(
-            pos,
-            text,
-            font=font,
-            fill="white",
-            anchor=anchor,
-            stroke_width=stroke_width,
-            stroke_fill="black",
-        )
+        draw.text(pos, text, font=font, fill="white", anchor=anchor,
+                  stroke_width=stroke_width, stroke_fill="black",)

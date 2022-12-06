@@ -9,7 +9,7 @@ class Server():
         host, port = address.split(":")
         self.server = QServer(host, int(port))
 
-    def request_data(self) -> ServerData:
+    def request_data(self) -> ServerData | None:
         print("Requesting data...")
 
         try:
