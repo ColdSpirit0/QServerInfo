@@ -1,16 +1,29 @@
 from dataclasses import dataclass
 
+# idk better way to freeze object and use pyright autocompletion & syntax check simultaneously
+
+
+class Config():
+    icon_path: str | None = None
+    font_path: str | None = None
+    request_delay: int | None = None
+    server_address: str | None = None
+    server_name: str | None = None
+    icon_title: str | None = None
+    filter_bots: bool | None = None
+    game_path: str | None = None
+
 
 @dataclass(frozen=True)
-class Config():
-    icon_path: str = None
-    font_path: str = None
-    request_delay: int = None
-    server_address: str = None
-    server_name: str = None
-    icon_title: str = None
-    filter_bots: bool = None
-    game_path: str = None
+class FrozenConfig(Config):
+    icon_path: str | None = None
+    font_path: str | None = None
+    request_delay: int | None = None
+    server_address: str | None = None
+    server_name: str | None = None
+    icon_title: str | None = None
+    filter_bots: bool | None = None
+    game_path: str | None = None
 
 
 class ConfigBuilder(Config):
@@ -21,4 +34,4 @@ class ConfigBuilder(Config):
             self.overrides[name] = value
 
     def build(self):
-        return Config(**self.overrides)
+        return FrozenConfig(**self.overrides)
