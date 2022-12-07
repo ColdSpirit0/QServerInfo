@@ -6,7 +6,7 @@ from TrayIcon import TrayIcon
 from PlayersTable import PlayersTable
 from server import Server, DummyServer
 from Config import Config
-from utils.gtk import connect, setup_style
+from utils.gtk import connect, load_global_css, ExBox, add_css_classes
 
 from text_parsers import PlainTextParser, XonoticTextParser
 
@@ -32,7 +32,6 @@ class MainWindow(Gtk.Window):
         connect(self.tray, "activate", self.toggle_visibility)
 
         # setup window: widgets, size, pos etc
-        setup_style(self, "main-window", "styles/main.css")
         self.setup_window()
 
         # start server requesting
@@ -55,7 +54,7 @@ class MainWindow(Gtk.Window):
                 # set name what server provides
                 self.update_title_info(data.hostname)
 
-            self.players_table.update_data(data.players, self.get_parser(data.gamename))
+            self.players_table.set_data(data.players, self.get_parser(data.gamename))
 
             self.tray.set_bottom_text(str(players_count))
 
@@ -82,28 +81,43 @@ class MainWindow(Gtk.Window):
         self.set_title("Server Info: " + info)
 
     def setup_window(self):
+        def create_info_label(name: str, value: str) -> ExBox:
+            hbox = ExBox()
+
+            info_name = hbox.pack_start(Gtk.Label(name), False, True, 0)
+            info_value = hbox.pack_start(Gtk.Label(value), True, True, 0)
+
+            add_css_classes(info_name, "info-name")
+            add_css_classes(info_value, "info-value")
+
+            return hbox
+
+        def create_title_label(text: str) -> Gtk.Label:
+            title = Gtk.Label(text)
+            add_css_classes(title, "title-label")
+
+            return title
+
         self.resize(500, 500)
 
+        load_global_css("styles/main.css")
+        add_css_classes(self, "main-window")
+
         # create layout
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5, border_width=5)  # type: ignore
+        vbox = ExBox(orientation=Gtk.Orientation.VERTICAL, margin=5, spacing=5, border_width=5)  # type: ignore
 
-        # create readonly address field
-        hbox = Gtk.Box(spacing=5)
-        hbox.pack_start(Gtk.Label("Address"), False, True, 0)
-        hbox.pack_start(Gtk.Entry(text=self.config.server_address, editable=False), True, True, 0)  # type: ignore
+        # server info
+        vbox.pack_start(create_title_label("Server information"), False, True, 0)
+        vbox.pack_start(create_info_label("Address", self.config.server_address), False, True, 0)
 
-        vbox.pack_start(hbox, True, False, 0)
-
-        self.players_table = PlayersTable([], self.get_parser(None))
-        vbox.pack_start(self.players_table, True, True, 0)
+        # players table
+        vbox.pack_start(create_title_label("Players"), False, True, 0)
+        self.players_table = vbox.pack_start(PlayersTable([], self.get_parser(None)), True, True, 0)
 
         # create join button
         if self.config.game_path is not None:
-
-            join_button = Gtk.Button(label="Join!")
-            join_button.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0.7, 0.25, 0.2, 1))
-            join_button.override_background_color(Gtk.StateFlags.ACTIVE, Gdk.RGBA(0.8, 0.35, 0.2, 1))
-            vbox.pack_start(join_button, False, True, 0)
+            join_button = vbox.pack_start(Gtk.Button(label="Join!"), False, True, 0)
+            add_css_classes(join_button, "join-button")
 
             connect(join_button, "clicked", self.start_game)
 

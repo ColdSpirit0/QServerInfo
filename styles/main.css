@@ -1,5 +1,47 @@
 .main-window {
     /* text-shadow: black 0px 0px 3px; */
+    /* font-weight: bold; */
+    font-size: 11pt;
+}
+
+.title-label {
     font-weight: bold;
-    font-size: 12pt;
+    /* font-size: large; */
+    margin-bottom: 3px;
+    /* text-decoration: underline; */
+}
+
+.title-label:not(:first-child) {
+    margin-top: 15px;
+}
+
+.join-button {
+    background-color: #9d371b;
+    color: #fafafa;
+    font-weight: bold;
+    font-size: x-large;
+
+    /* fix label not getting color for some themes */
+    background-image: unset;
+	border-radius: 7px;
+	border: none;
+	box-shadow: none;
+}
+
+.join-button:hover {
+    background-color: #c14321;
+}
+
+.join-button:active {
+    background-color: #da4d26;
+}
+
+.info-value {
+    font-weight: bold;
+    background: @theme_base_color;
+    margin-left: 10px;
+}
+
+.info_name, .info_value {
+
 }
