@@ -15,7 +15,7 @@ class XonoticTextParser(TextParserAbstract):
         ^6    | #F0F Magenta                 |
         ^7    | #FFF White                   |
         ^8    | #FFF8 Half transparent white | Alpha will be ignored
-        ^9    | #888 Light Gray              |   
+        ^9    | #888 Light Gray              |
         ^0    | #000 Black                   |
         ^xRGB | #RGB Custom color            |
     """
@@ -36,9 +36,8 @@ class XonoticTextParser(TextParserAbstract):
     @classmethod
     def parse_text(cls, text: str):
         colors_pattern = r"\^\d|\^x[0-9a-fA-F]{3}"
-        regex = re.compile(rf"({colors_pattern})(.*?)(?={colors_pattern}|$)")
-
-        # res = regex.sub(cls.format_match, text)
+        regex = re.compile(rf"({colors_pattern})?(.*?)(?={colors_pattern}|$)")
+        # print(regex.pattern)
 
         result = []
 
@@ -48,6 +47,10 @@ class XonoticTextParser(TextParserAbstract):
 
             if plain_text == "":
                 continue
+
+            if color_text is None:
+                # set it white
+                color_text = "^7"
 
             result.append((cls.get_color(color_text), plain_text))
 

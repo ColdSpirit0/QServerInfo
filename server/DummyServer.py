@@ -34,13 +34,13 @@ class DummyServer(Server):
                 },
                 {
                     'frags': 30,
-                    'ping': 0,
-                    'colored_name': '^xEEFColdSpirit',
+                    'ping': 99999,
+                    'colored_name': 'TEST NICKNAME',
                 },
                 {
                     'frags': 30,
-                    'ping': 0,
-                    'colored_name': '^5ColdSpirit',
+                    'ping': -888,
+                    'colored_name': '▮▮▮▮▮',
                 },
             ]
         }
