@@ -1,7 +1,7 @@
 from gi.repository.Gtk import Widget  # type: ignore
 from typing import Iterable, cast
 
-from utils.gtk import add_css_classes
+from ..utils.gtk import add_css_classes
 
 
 CLASSES_TYPE = Iterable[str] | str | None

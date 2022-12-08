@@ -9,3 +9,35 @@ max-line-length = 120
 # [tool.pyright]
 # typeCheckingMode = "base"
 # reportMissingModuleSource = false
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qserverinfo"
+version = "1.0.0"
+description = "Shows info about quake servers in the tray"
+readme = "README.md"
+authors = [{ name = "ColdSpirit" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["quake", "tray", "server", "info", "xonotic", "doombringer"]
+dependencies = [
+    "colour==0.1.5",
+    "Pillow==9.3.0",
+    "PyGObject==3.42.2",
+    "pyq3serverlist==0.2.0",
+]
+requires-python = ">=3.10"
+
+[project.urls]
+"Homepage" = "https://github.com/ColdSpirit0/QServerInfo"
+"Bug Tracker" = "https://github.com/ColdSpirit0/QServerInfo/issues"
+
+[project.scripts]
+qserverinfo = "qserverinfo.entry:main"

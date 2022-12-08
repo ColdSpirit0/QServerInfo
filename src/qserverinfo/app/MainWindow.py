@@ -1,14 +1,14 @@
 from gi.repository import Gtk, Gdk, GLib  # type: ignore
 import subprocess
 
-from TrayMenu import TrayMenu
-from TrayIcon import TrayIcon
-from server import Server, DummyServer
-from Config import Config
-from utils.gtk import connect, load_global_css, add_css_classes
+from .TrayMenu import TrayMenu
+from .TrayIcon import TrayIcon
+from .server import Server, DummyServer
+from .Config import Config
+from .utils.gtk import connect, load_global_css, add_css_classes
 
-from text_parsers import PlainTextParser, XonoticTextParser
-from widgets import ExLabel, ExBox, PlayersTable, ServerDetailsWidget
+from .text_parsers import PlainTextParser, XonoticTextParser
+from .widgets import ExLabel, ExBox, PlayersTable, ServerDetailsWidget
 
 
 class MainWindow(Gtk.Window):
@@ -91,7 +91,7 @@ class MainWindow(Gtk.Window):
 
         self.resize(500, 500)
 
-        load_global_css("styles/main.css")
+        load_global_css(self.config.styles_path)
         add_css_classes(self, "main-window")
 
         # create layout

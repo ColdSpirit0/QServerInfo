@@ -1,7 +1,6 @@
 from gi.repository import Gtk  # type: ignore
-from Config import Config
-from widgets import ExBox
-from widgets.ExLabel import ExLabel
+from ..Config import Config
+from .import ExBox, ExLabel
 
 
 class ServerDetailsWidget(ExBox):

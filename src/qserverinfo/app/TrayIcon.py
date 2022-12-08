@@ -1,6 +1,6 @@
 from gi.repository import Gtk  # type: ignore
 from PIL import Image, ImageDraw, ImageFont
-from utils.image_manipulation import image2pixbuf, calc_font_size
+from .utils.image_manipulation import image2pixbuf, calc_font_size
 
 
 class TrayIcon(Gtk.StatusIcon):

@@ -6,6 +6,7 @@ from dataclasses import dataclass
 class Config():
     icon_path: str
     font_path: str
+    styles_path: str
     request_delay: int
     server_address: str
     server_name: str | None = None
@@ -19,6 +20,7 @@ class Config():
 class FrozenConfig(Config):
     icon_path: str
     font_path: str
+    styles_path: str
     request_delay: int
     server_address: str
     server_name: str | None = None

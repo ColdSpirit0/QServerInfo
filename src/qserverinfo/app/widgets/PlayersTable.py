@@ -1,12 +1,10 @@
 from gi.repository import Gtk, Pango  # type: ignore
-
 from colour import Color
-from utils.color_processing import get_contrast_color
 
-from text_parsers import TextParserAbstract
-from server import PlayerData
-
-from utils.gtk import connect
+from ..utils.gtk import connect
+from ..utils.color_processing import get_contrast_color
+from ..text_parsers import TextParserAbstract
+from ..server import PlayerData
 
 
 class PlayersTable(Gtk.TreeView):
