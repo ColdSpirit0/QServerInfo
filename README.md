@@ -12,7 +12,7 @@ pip install qserverinfo
 ### Usage
 
 ```shell
-qserverinfo [IP]:[PORT] -g
+qserverinfo [IP]:[PORT]
 ```
 
 ### Additional arguments:
