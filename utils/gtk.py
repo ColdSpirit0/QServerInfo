@@ -1,6 +1,6 @@
 from gi.repository import Gtk, Gdk, GObject  # type: ignore
 import re
-from typing import Callable, TypeVar
+from typing import Callable
 
 
 def connect(obj: GObject.Object, event: str, listener: Callable, *args):
@@ -41,16 +41,3 @@ def add_css_classes(widget: Gtk.Widget, *css_classes: str):
 
     for v in css_classes:
         style_context.add_class(v)
-
-
-T = TypeVar("T", bound=Gtk.Widget)
-
-
-class ExBox(Gtk.Box):
-    def pack_start(self, child: T, expand: bool, fill: bool, padding: int) -> T:
-        super().pack_start(child, expand, fill, padding)
-        return child
-
-    def pack_end(self, child: T, expand: bool, fill: bool, padding: int) -> T:
-        super().pack_end(child, expand, fill, padding)
-        return child

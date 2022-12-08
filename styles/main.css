@@ -36,12 +36,17 @@
     background-color: #da4d26;
 }
 
+.info-name {
+    min-width: 100px;
+}
+
 .info-value {
     font-weight: bold;
     background: @theme_base_color;
     margin-left: 10px;
 }
 
-.info_name, .info_value {
-
+.info-name, .info-value {
+    margin: 3px;
+    padding: 2px;
 }

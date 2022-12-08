@@ -50,3 +50,8 @@ class ServerData():
         name = self.data.get("gamename")
         assert isinstance(name, str)
         return name
+
+    @cached_property
+    def mapname(self) -> str | None:
+        mapname = self.data.get("mapname")
+        return mapname

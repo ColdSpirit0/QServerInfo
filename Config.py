@@ -12,6 +12,7 @@ class Config():
     icon_title: str | None = None
     filter_bots: bool | None = None
     game_path: str | None = None
+    show_mapname: bool | None = None
 
 
 @dataclass(frozen=True)
@@ -24,6 +25,7 @@ class FrozenConfig(Config):
     icon_title: str | None = None
     filter_bots: bool | None = None
     game_path: str | None = None
+    show_mapname: bool | None = None
 
 
 class ConfigBuilder(Config):

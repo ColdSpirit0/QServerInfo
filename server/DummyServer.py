@@ -14,7 +14,7 @@ class DummyServer(Server):
             "port": 777,
             "gamename": "Xonotic",
             'bots': '1',
-            'mapname': 'nexdance',
+            # 'mapname': 'nexdance',
             'hostname': '| DOOMY | SERVER |',
             'players': [
                 {

@@ -6,9 +6,11 @@ from TrayIcon import TrayIcon
 from PlayersTable import PlayersTable
 from server import Server, DummyServer
 from Config import Config
-from utils.gtk import connect, load_global_css, ExBox, add_css_classes
+from widgets import ExLabel, ExBox
+from utils.gtk import connect, load_global_css, add_css_classes
 
 from text_parsers import PlainTextParser, XonoticTextParser
+from widgets.ServerDetailsWidget import ServerDetailsWidget
 
 
 class MainWindow(Gtk.Window):
@@ -54,6 +56,10 @@ class MainWindow(Gtk.Window):
                 # set name what server provides
                 self.update_title_info(data.hostname)
 
+            if self.config.show_mapname:
+                print("set mapname:", data.mapname)
+                self.server_details.set_mapname(data.mapname or "No info")
+
             self.players_table.set_data(data.players, self.get_parser(data.gamename))
 
             self.tray.set_bottom_text(str(players_count))
@@ -81,21 +87,8 @@ class MainWindow(Gtk.Window):
         self.set_title("Server Info: " + info)
 
     def setup_window(self):
-        def create_info_label(name: str, value: str) -> ExBox:
-            hbox = ExBox()
-
-            info_name = hbox.pack_start(Gtk.Label(name), False, True, 0)
-            info_value = hbox.pack_start(Gtk.Label(value), True, True, 0)
-
-            add_css_classes(info_name, "info-name")
-            add_css_classes(info_value, "info-value")
-
-            return hbox
-
-        def create_title_label(text: str) -> Gtk.Label:
-            title = Gtk.Label(text)
-            add_css_classes(title, "title-label")
-
+        def create_title_label(text: str) -> ExLabel:
+            title = ExLabel(label=text, css_classes="title-label")
             return title
 
         self.resize(500, 500)
@@ -108,7 +101,7 @@ class MainWindow(Gtk.Window):
 
         # server info
         vbox.pack_start(create_title_label("Server information"), False, True, 0)
-        vbox.pack_start(create_info_label("Address", self.config.server_address), False, True, 0)
+        self.server_details = vbox.pack_start(ServerDetailsWidget(self.config), False)
 
         # players table
         vbox.pack_start(create_title_label("Players"), False, True, 0)

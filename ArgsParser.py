@@ -18,13 +18,21 @@ class ArgsParser(argparse.ArgumentParser):
         )
 
         self.add_argument("address", help="address to server with port in format [host]:[port]")
+
         self.add_argument("-n", "--name", help="server name, it will be shown in GUI")
+
         self.add_argument("-it", "--icon-title", help="text on top of icon")
+
         self.add_argument("-rd", "--request-delay",
                           help="how often server will be requested; in seconds, minimum 30, default 60",
                           type=request_delay_type)
+
         self.add_argument("-fb", "--filter-bots", help="remove bots from players count if possible",
                           action="store_true")
+
         self.add_argument("-e", "--executable",
                           help="path to game executable which will start after"
                           " \"Join\" button click with parameter \"+connect <address>\"")
+
+        self.add_argument("-m", "--show-mapname", help="display mapname in the window if possible",
+                          action="store_true")

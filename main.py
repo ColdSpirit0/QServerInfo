@@ -20,6 +20,7 @@ builder.server_name = args.name
 builder.icon_title = args.icon_title
 builder.filter_bots = args.filter_bots
 builder.game_path = args.executable
+builder.show_mapname = args.show_mapname
 
 
 window = MainWindow(builder.build())
