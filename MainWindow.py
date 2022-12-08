@@ -3,14 +3,12 @@ import subprocess
 
 from TrayMenu import TrayMenu
 from TrayIcon import TrayIcon
-from PlayersTable import PlayersTable
 from server import Server, DummyServer
 from Config import Config
-from widgets import ExLabel, ExBox
 from utils.gtk import connect, load_global_css, add_css_classes
 
 from text_parsers import PlainTextParser, XonoticTextParser
-from widgets.ServerDetailsWidget import ServerDetailsWidget
+from widgets import ExLabel, ExBox, PlayersTable, ServerDetailsWidget
 
 
 class MainWindow(Gtk.Window):
