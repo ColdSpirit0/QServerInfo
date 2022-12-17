@@ -2,7 +2,7 @@
 
 Shows info about quake servers in the tray
 
-### How to install
+### How to install (linux only)
 
 ```shell
 pip install qserverinfo
