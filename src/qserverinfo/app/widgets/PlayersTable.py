@@ -77,7 +77,9 @@ class PlayersTable(Gtk.TreeView):
                 final_color = get_contrast_color(self.bg_color, Color(color), 0.15) if color is not None \
                               else self.fg_color
 
-                formatted_text_parts.append(f"""<span color="{final_color.hex}">{text}</span>""")
+                decoded_text = self.text_parser.decode_text(text)
+
+                formatted_text_parts.append(f"""<span color="{final_color.hex}">{decoded_text}</span>""")
 
             self.players_model.append([player.ping, "".join(formatted_text_parts), player.frags])
 
