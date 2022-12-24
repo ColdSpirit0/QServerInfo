@@ -93,8 +93,6 @@ class PlayersTable(Gtk.TreeView):
         self.bg_color = self.get_theme_color(["theme_bg_color", "theme_base_color", "bg_color"], "#222")
         self.fg_color = self.get_theme_color(["theme_fg_color", "theme_text_color", "fg_color"], "#CCC")
 
-        print(self.bg_color.hex, self.fg_color.hex, "", sep="\n")
-
     def get_theme_color(self, color_names: list[str], fallback_hex: str) -> Color:
         if not hasattr(self, "style"):
             self.style = self.get_style()
@@ -103,7 +101,6 @@ class PlayersTable(Gtk.TreeView):
             ok, gtk_color = self.style.lookup_color(color_name)
 
             if ok:
-                print("found:", color_name)
                 return Color(rgb=gtk_color.to_floats())
 
         return Color(fallback_hex)

@@ -21,7 +21,6 @@ class QuakeTextParser(TextParserAbstract):
     def parse_text(cls, text: str):
         colors_pattern = r"\^\d|\^x[0-9a-fA-F]{3}"
         regex = re.compile(rf"({colors_pattern})?(.*?)(?={colors_pattern}|$)")
-        # print(regex.pattern)
 
         result = []
 

@@ -1,3 +1,4 @@
+import logging
 from pyq3serverlist import Server as QServer, PyQ3SLError, PyQ3SLTimeoutError
 
 from .ServerText import ServerText
@@ -10,14 +11,14 @@ class Server():
         self.server = QServer(host, int(port))
 
     def request_data(self) -> ServerData | None:
-        print("Requesting data...")
+        logging.debug("Requesting data...")
 
         try:
             info = self.server.get_status()
-            print(ServerText.decode_recursive(info))
+            logging.debug(ServerText.decode_recursive(info))
             return ServerData(info)
 
         except (PyQ3SLError, PyQ3SLTimeoutError) as e:
-            print(e)
+            logging.warning(e)
 
             return None

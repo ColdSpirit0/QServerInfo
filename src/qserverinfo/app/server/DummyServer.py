@@ -1,3 +1,4 @@
+import logging
 from .Server import Server
 from .ServerData import ServerData
 
@@ -8,7 +9,7 @@ class DummyServer(Server):
         pass
 
     def request_data(self) -> ServerData:
-        print("Requesting dummy data...")
+        logging.debug("Requesting dummy data...")
         info = {
             "ip": "best.dummy.server.ever",
             "port": 777,
@@ -45,5 +46,4 @@ class DummyServer(Server):
             ]
         }
 
-        # print(ServerText.decode_recursive(info))
         return ServerData(info)

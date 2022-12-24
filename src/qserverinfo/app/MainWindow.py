@@ -1,4 +1,5 @@
 from gi.repository import Gtk, Gdk, GLib  # type: ignore
+import logging
 import subprocess
 
 from .TrayMenu import TrayMenu
@@ -55,7 +56,7 @@ class MainWindow(Gtk.Window):
                 self.update_title_info(data.hostname)
 
             if self.config.show_mapname:
-                print("set mapname:", data.mapname)
+                logging.debug(f"set mapname: {data.mapname}")
                 self.server_details.set_mapname(data.mapname or "No info")
 
             self.players_table.set_data(data.players, self.get_parser(data.gamename))
@@ -119,7 +120,7 @@ class MainWindow(Gtk.Window):
         if self.config.game_path is None:
             raise Exception("game path is none, that should not happen")
 
-        print("running", self.config.game_path)
+        logging.debug("running", self.config.game_path)
         self.hide()
 
         subprocess.Popen([self.config.game_path, "+connect", self.config.server_address],
