@@ -36,3 +36,6 @@ class ArgsParser(argparse.ArgumentParser):
 
         self.add_argument("-m", "--show-mapname", help="display mapname in the window if possible",
                           action="store_true")
+
+        # debug
+        self.add_argument("--exit-on-esc", help=argparse.SUPPRESS, action="store_true")

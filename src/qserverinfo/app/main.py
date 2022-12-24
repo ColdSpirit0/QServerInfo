@@ -27,6 +27,7 @@ def main():
     builder.filter_bots = args.filter_bots
     builder.game_path = args.executable
     builder.show_mapname = args.show_mapname
+    builder.exit_on_esc = args.exit_on_esc
 
     window = MainWindow(builder.build())
     window.move(1600, 800)

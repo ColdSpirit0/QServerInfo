@@ -20,7 +20,13 @@ class MainWindow(Gtk.Window):
         self.config = config
 
         # configure window events
-        self.connect("key_press_event", self.on_key)
+        if config.exit_on_esc:
+            def on_key(_, key):
+                if key.keyval == Gdk.KEY_Escape:
+                    Gtk.main_quit()
+
+            self.connect("key_press_event", on_key)
+
         connect(self, "delete-event", self.on_delete)
 
         # setup tray and menu
@@ -73,10 +79,6 @@ class MainWindow(Gtk.Window):
             self.hide()
         else:
             self.show()
-
-    def on_key(self, _, key):
-        if key.keyval == Gdk.KEY_Escape:
-            Gtk.main_quit()
 
     def on_delete(self):
         self.hide()

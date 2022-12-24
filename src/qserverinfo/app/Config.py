@@ -9,6 +9,7 @@ class Config():
     styles_path: str
     request_delay: int
     server_address: str
+    exit_on_esc: bool
     server_name: str | None = None
     icon_title: str | None = None
     filter_bots: bool | None = None
@@ -23,6 +24,7 @@ class FrozenConfig(Config):
     styles_path: str
     request_delay: int
     server_address: str
+    exit_on_esc: bool
     server_name: str | None = None
     icon_title: str | None = None
     filter_bots: bool | None = None
