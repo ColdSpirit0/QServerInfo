@@ -7,7 +7,7 @@ from .server import Server, DummyServer
 from .Config import Config
 from .utils.gtk import connect, load_global_css, add_css_classes
 
-from .text_parsers import PlainTextParser, XonoticTextParser
+from .text_parsers import PlainTextParser, XonoticTextParser, QuakeTextParser
 from .widgets import ExLabel, ExBox, PlayersTable, ServerDetailsWidget
 
 
@@ -129,4 +129,6 @@ class MainWindow(Gtk.Window):
     def get_parser(game_name: str | None):
         match game_name:
             case "Xonotic": return XonoticTextParser
+            case "baseoa": return QuakeTextParser  # openarena
+            case "Warsow": return QuakeTextParser
             case _: return PlainTextParser

@@ -1,9 +1,7 @@
-import re
-
-from .TextParserAbstract import TextParserAbstract
+from .QuakeTextParser import QuakeTextParser
 
 
-class XonoticTextParser(TextParserAbstract):
+class XonoticTextParser(QuakeTextParser):
     """ Parses colors with rules (from xonotic documentation):
 
         Code  | Result                       | Note
@@ -72,35 +70,11 @@ class XonoticTextParser(TextParserAbstract):
     ]
 
     @classmethod
-    def parse_text(cls, text: str):
-        colors_pattern = r"\^\d|\^x[0-9a-fA-F]{3}"
-        regex = re.compile(rf"({colors_pattern})?(.*?)(?={colors_pattern}|$)")
-        # print(regex.pattern)
-
-        result = []
-
-        for match in regex.finditer(text):
-            color_text = match.group(1)
-            plain_text = match.group(2)
-
-            if plain_text == "":
-                continue
-
-            if color_text is None:
-                # set it white
-                color_text = "^7"
-
-            result.append((cls.get_color(color_text), plain_text))
-
-        return result
-
-    @classmethod
     def get_color(cls, color_text: str):
-        match color_text[1]:
-            case "x":
-                return "#" + color_text[2:]
-            case color_number:
-                return cls.color_codes[color_number]
+        if color_text[1] == "x":
+            return "#" + color_text[2:]
+
+        return super().get_color(color_text)
 
     @classmethod
     def decode_char(cls, char: str) -> str:
