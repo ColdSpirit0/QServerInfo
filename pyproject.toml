@@ -16,7 +16,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "qserverinfo"
-version = "1.0.0"
+version = "1.0.1"
 description = "Shows info about quake servers in the tray"
 readme = "README.md"
 authors = [{ name = "ColdSpirit" }]

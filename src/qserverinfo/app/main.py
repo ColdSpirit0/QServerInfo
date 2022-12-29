@@ -30,6 +30,7 @@ def main():
     builder.exit_on_esc = args.exit_on_esc
 
     window = MainWindow(builder.build())
-    window.move(1600, 800)
-    window.show()
+    # TODO: move near tray pos or at least screen center
+    # window.move(1600, 800)
+    # window.show()
     Gtk.main()
