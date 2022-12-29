@@ -1,4 +1,5 @@
 import gi
+import os
 
 gi.require_version("Gtk", "3.0")
 
@@ -10,7 +11,7 @@ from .Config import ConfigBuilder
 # TODO: class ServerInfo
 
 
-APP_PATH = "src/qserverinfo/app"
+APP_PATH = os.path.dirname(__file__)
 
 
 def main():

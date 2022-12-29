@@ -16,7 +16,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "qserverinfo"
-version = "1.0.1"
+version = "1.0.5"
 description = "Shows info about quake servers in the tray"
 readme = "README.md"
 authors = [{ name = "ColdSpirit" }]
@@ -41,3 +41,10 @@ requires-python = ">=3.10"
 
 [project.scripts]
 qserverinfo = "qserverinfo.entry:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"qserverinfo.app.data" = ["*"]
+"qserverinfo.app.styles" = ["*"]
