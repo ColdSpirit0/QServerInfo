@@ -2,7 +2,12 @@
 
 Shows info about quake servers in the tray
 
-### How to install (linux only)
+### Requirements
+* Linux, possibly MacOS
+* Python >= 3.10
+
+
+### How to install
 
 ```shell
 pip install qserverinfo
